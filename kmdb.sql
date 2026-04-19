@@ -95,13 +95,110 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+DROP TABLE if EXISTS studios;
+DROP TABLE if EXISTS movies;
+DROP TABLE if EXISTS roles;
+DROP TABLE if EXISTS actors;
+DROP TABLE if EXISTS agents;
 
 -- Create new tables, according to your domain model
 -- TODO!
+CREATE TABLE studios(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+
+CREATE TABLE movies(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    year TEXT,
+    rating TEXT,
+    studio_id TEXT
+);
+
+CREATE TABLE roles(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    movie_id TEXT,
+    actor_id TEXT,
+    character TEXT
+);
+
+CREATE TABLE actors(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    agent_id TEXT
+);
+
+CREATE TABLE agents(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+INSERT INTO studios(
+    name
+    )
+    VALUES(
+    "Warner Bros."
+    );
+
+INSERT INTO movies(
+    title,
+    year,
+    rating,
+    studio_id
+    )
+    VALUES
+    ("Batman Begins", 2005, "PG-13", 1),
+    ("The Dark Knight", 2008, "PG-13",1),
+    ("The Dark Knight Rises", 2012, "PG-13",1);
+
+INSERT INTO agents(
+    name
+    )
+    VALUES(
+    "James Giles"
+    );
+
+INSERT INTO actors(
+    name
+    )
+    VALUES
+    ("Christian Bale"),
+    ("Michael Caine"),
+    ("Liam Neeson"),
+    ("Katie Holmes"),
+    ("Gary Oldman"),
+    ("Heath Ledger"),
+    ("Aaron Eckhart"),
+    (" Maggie Gyllenhaal"),
+    ("Tom Hardy"),
+    ("Joseph Gordon-Levitt"),
+    ("Anne Hathaway");
+
+INSERT INTO roles(
+    movie_id,
+    actor_id,
+    character
+    )
+    VALUES
+    (1, 1, "Bruce Wayne"),
+    (1, 2, "Alfred"),
+    (1, 3,"Ra's Al Ghul"),
+    (1, 4, "Rachel Dawes"),
+    (1, 5, "Commissioner Gordon"),
+    (2, 1, "Bruce Wayne"),
+    (2, 6, "Joker"),
+    (2, 7, "Harvey Dent"),
+    (2, 2, "Alfred"),
+    (2, 8, "Rachel Dawes"),
+    (3, 1, "Bruce Wayne"),
+    (3, 5, "Commissioner Gordon"),
+    (3, 9, "Bane"),
+    (3, 10, "John Blake"),
+    (3, 11, "Selina Kyle");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -110,6 +207,8 @@
 
 -- ***TODO!***
 -- The SQL statement for the movies output goes here.
+SELECT title, year, rating, studios.name
+FROM movies INNER JOIN studios ON studio_id = studios.id;
 
 -- Example output:
 -- Movies
